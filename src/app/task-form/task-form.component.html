@@ -1,0 +1,14 @@
+<div class="task-wrapper">
+    <div *ngIf="emptyTitleError" class="error-text">Task title must be at least 5 symbols</div>
+    <div class="addTask-wrapper">
+      <input
+        type="text" 
+        placeholder="Add task title"
+        [(ngModel)]="title"
+        (keydown.enter) = "addTask()"      
+        [ngClass] = "{emptyTitle:emptyTitleError}"
+        (keypress) = "validateTaskTitle()"
+      >
+      <button (click) = "addTask()">Add task</button>
+    </div>    
+</div>

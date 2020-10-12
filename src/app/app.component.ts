@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ITask } from './interfaces/itask';
 
 @Component({
   selector: 'app-root',
