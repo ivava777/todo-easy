@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+
 import { ITask } from '../interfaces/itask';
 import { TasksService } from '../shared/tasks.sevice';
 
@@ -8,10 +9,9 @@ import { TasksService } from '../shared/tasks.sevice';
   styleUrls: ['./task-form.component.scss']
 })
 export class TaskFormComponent implements OnInit {
-
-  title: '';
-  emptyTitleError = false;
-  alreadyChekedTitle = false;
+  title = '';
+  isEmptyTitleError = false;
+  isAlreadyChekedTitle = false;
 
   constructor(private tasksService: TasksService) {}
 
@@ -19,21 +19,21 @@ export class TaskFormComponent implements OnInit {
 
   validateTaskTitle(validateBeforeAdding: boolean = false): boolean{
 
-    if (!this.alreadyChekedTitle && !validateBeforeAdding) {
+    if (!this.isAlreadyChekedTitle && !validateBeforeAdding) {
       return true;
     }
 
     if (this.title.trim().length < 5){
-      this.emptyTitleError = true;
+      this.isEmptyTitleError = true;
     } else {
-      this.emptyTitleError = false;
+      this.isEmptyTitleError = false;
     }
   }
 
-  addTask(){
+  addTask(): void{
     this.validateTaskTitle(true);
-    if (this.emptyTitleError) {
-      this.alreadyChekedTitle = true;
+    if (this.isEmptyTitleError) {
+      this.isAlreadyChekedTitle = true;
       return;
     }
 
@@ -42,9 +42,9 @@ export class TaskFormComponent implements OnInit {
       id: new Date().getMilliseconds(),
       isDone: false,
       dateAdded: new Date()
-    }
+    };
     this.tasksService.addTask(newTask);
     this.title = '';
-    this.alreadyChekedTitle = false;
+    this.isAlreadyChekedTitle = false;
   }
 }

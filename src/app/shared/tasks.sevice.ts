@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient} from '@angular/common/http'
+import { HttpClient} from '@angular/common/http';
 import { ITask } from '../interfaces/itask';
 import { Observable } from 'rxjs';
-import {tap} from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 
 @Injectable({providedIn: 'root'})
 export class TasksService{
@@ -16,22 +16,22 @@ export class TasksService{
             .pipe(tap(tasks => this.taskList = tasks));
     }
 
-    onToggle(id: number) {
+    onToggle(id: number): void {
         const currentTask = this.getTaskById(id);
         if (currentTask){
             currentTask.isDone = !currentTask.isDone;
         }
     }
 
-    removeTask(taskId: number) {
+    removeTask(taskId: number): void{
         this.taskList = this.taskList.filter(task => task.id !== taskId);
     }
 
-    getTaskById(id: number){
+    getTaskById(id: number): ITask{
         return this.taskList.find(elem => elem.id === id);
     }
 
-    addTask(newTask: ITask) {
+    addTask(newTask: ITask): void {
         this.taskList.push(newTask);
     }
 }
